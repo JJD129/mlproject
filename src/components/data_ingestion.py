@@ -17,42 +17,42 @@ class DataIngestionConfig:
 
 class DataIngestion:
     def __init__(self):
-        self.DataIngestionConfig=DataIngestionConfig()
+        self.ingestion_config=DataIngestionConfig()
     
     def initiate_data_ingestion(self):
         logging.info('Start Data Ingestion Process')
         try:
             # download data from kaggle
-            logging.info(f"Downloading dataset {self.DataIngestionConfig.dataset_name} to {self.DataIngestionConfig.download_path}")
+            logging.info(f"Downloading dataset {self.ingestion_config.dataset_name} to {self.ingestion_config.download_path}")
             api = authenticate_kaggle_api()
             api.dataset_download_files(
-                self.DataIngestionConfig.dataset_name, 
-                path=self.DataIngestionConfig.download_path, 
+                self.ingestion_config.dataset_name, 
+                path=self.ingestion_config.download_path, 
                 unzip=True
             )
-            logging.info(f"Dataset downloaded and extracted to {self.DataIngestionConfig.download_path}")
+            logging.info(f"Dataset downloaded and extracted to {self.ingestion_config.download_path}")
 
             # load data
-            if not os.path.exists(self.DataIngestionConfig.raw_data_path):
-                raise FileExistsError(f"Expected data file not found at {self.DataIngestionConfig.raw_data_path}")
-            df = pd.read_csv(self.DataIngestionConfig.raw_data_path)
+            if not os.path.exists(self.ingestion_config.raw_data_path):
+                raise FileExistsError(f"Expected data file not found at {self.ingestion_config.raw_data_path}")
+            df = pd.read_csv(self.ingestion_config.raw_data_path)
             logging.info('loaded raw data into dataframe')
 
             # save raw data inot the configured path
-            os.makedirs(os.path.dirname(self.DataIngestionConfig.raw_data_path), exist_ok=True)
-            df.to_csv(self.DataIngestionConfig.raw_data_path, index=False)
-            logging.info(f"Raw data saved at {self.DataIngestionConfig.raw_data_path}")
+            os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
+            df.to_csv(self.ingestion_config.raw_data_path, index=False)
+            logging.info(f"Raw data saved at {self.ingestion_config.raw_data_path}")
 
             # split data into train and test sets
             train_df, test_df = train_test_split(df, test_size=0.2, random_state=42)
-            train_df.to_csv(self.DataIngestionConfig.train_data_path, index=False)
-            logging.info(f"Train data saved at {self.DataIngestionConfig.train_data_path}")
-            test_df.to_csv(self.DataIngestionConfig.test_data_path, index=False)
-            logging.info(f"Test data saved at {self.DataIngestionConfig.test_data_path}")
+            train_df.to_csv(self.ingestion_config.train_data_path, index=False)
+            logging.info(f"Train data saved at {self.ingestion_config.train_data_path}")
+            test_df.to_csv(self.ingestion_config.test_data_path, index=False)
+            logging.info(f"Test data saved at {self.ingestion_config.test_data_path}")
 
             logging.info("Data ingestion completed successfully")
 
-            return self.DataIngestionConfig.train_data_path, self.DataIngestionConfig.test_data_path
+            return self.ingestion_config.train_data_path, self.ingestion_config.test_data_path
         except Exception as e:
             logging.error("Error occured during data ingestion")
             raise CustomException(e, sys)
