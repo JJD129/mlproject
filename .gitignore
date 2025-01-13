@@ -169,10 +169,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-notebook/catboost_info/catboost_training.json
-notebook/catboost_info/learn_error.tsv
-notebook/catboost_info/time_left.tsv
-notebook/catboost_info/learn/events.out.tfevents
-artifact/test.csv
-artifact/train.csv
-artifact/StudentsPerformance.csv
+/artifact
+/notebook
+
