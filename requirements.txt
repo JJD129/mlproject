@@ -5,7 +5,7 @@ matplotlib
 kaggle
 python-dotenv
 scikit-learn
-catboost
+catboost==1.2.5
 xgboost
 Flask
 # -e .
