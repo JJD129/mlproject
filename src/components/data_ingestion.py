@@ -1,8 +1,8 @@
-from src.utils import authenticate_kaggle_api
 import os
 import sys
 from src.exception import CustomException
 from src.logger import logging
+from src.utils import authenticate_kaggle_api
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
@@ -11,7 +11,7 @@ from dataclasses import dataclass
 class DataIngestionConfig:
     train_data_path: str=os.path.join('artifact', 'train.csv')
     test_data_path: str=os.path.join('artifact', 'test.csv')
-    raw_data_path: str=os.path.join('artifact', 'data.csv')
+    raw_data_path: str=os.path.join('artifact', 'StudentsPerformance.csv')
     dataset_name: str="spscientist/students-performance-in-exams" 
     download_path: str="./artifact"
 
@@ -56,4 +56,7 @@ class DataIngestion:
         except Exception as e:
             logging.error("Error occured during data ingestion")
             raise CustomException(e, sys)
-            
+
+# if __name__=="__main__":
+#     obj=DataIngestion()
+#     obj.initiate_data_ingestion()
