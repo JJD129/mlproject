@@ -1,4 +1,4 @@
-### End-to-End Machine Learning Project
+# End-to-End Machine Learning Project
 
 This repository contains an end-to-end machine learning project, including data preprocessing, model training, and deployment on AWS.
 
@@ -41,17 +41,14 @@ python app.py
 To deploy the application on AWS:
 
 1. Build the Docker image:
-
-bash
-Copy
-Edit
+```
 docker build -t mlproject .
-Tag and push the image to Amazon Elastic Container Registry (ECR).
+```
+2. Tag and push the image to Amazon Elastic Container Registry (ECR).
+3. Deploy the image using Amazon Elastic Container Service (ECS) or another AWS service.
 
-Deploy the image using Amazon Elastic Container Service (ECS) or another AWS service.
-
-Contributing
+## Contributing
 Contributions are welcome! Please open an issue or submit a pull request.
 
-License
+## License
 This project is licensed under the MIT License.
